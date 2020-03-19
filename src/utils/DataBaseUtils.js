@@ -70,7 +70,7 @@ export function listItems(page = 0, expiried) {
  * @return {object} - Item object
  */
 export function getItems(id = '') {
-  return Item.findOne({_id: id});
+  return Item.find({_id: id});
 }
 
 /**
@@ -79,7 +79,7 @@ export function getItems(id = '') {
  * @return {object} - Item object
  */
 export function getItemsByIdentifier(identifier = '') {
-  return Item.findOne({identifier});
+  return Item.find({identifier});
 }
 
 /**
@@ -88,7 +88,7 @@ export function getItemsByIdentifier(identifier = '') {
  * @return {object} - Item object
  */
 export function getItemsBySerial(serial = '') {
-  return Item.findOne({serial});
+  return Item.find({serial});
 }
 
 /**
