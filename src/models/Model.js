@@ -15,6 +15,7 @@ const UserSchema = new Schema({
 const ItemSchema = new Schema({
   identifier: {type: String, required: true},
   token: {type: String, required: true},
+  serial: {type: String, required: true},
   description: {type: String},
   deleted: {type: Boolean, default: false},
   createdAt: {type: Date, default: new Date()},

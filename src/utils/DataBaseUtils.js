@@ -74,12 +74,21 @@ export function getItems(id = '') {
 }
 
 /**
- * Поиск item по id
+ * Поиск item по identifier
  * @param {string} identifier - Item identifier
  * @return {object} - Item object
  */
 export function getItemsByIdentifier(identifier = '') {
   return Item.findOne({identifier});
+}
+
+/**
+ * Поиск item по serial
+ * @param {string} serial - Item serial
+ * @return {object} - Item object
+ */
+export function getItemsBySerial(serial = '') {
+  return Item.findOne({serial});
 }
 
 /**
@@ -94,6 +103,7 @@ export async function createItems(data = {}) {
       identifier: data.identifier,
       token: data.token,
       description: data.description,
+      serial: data.serial,
     });
     return item.save();
   }
