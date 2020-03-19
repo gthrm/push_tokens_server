@@ -60,7 +60,7 @@ export async function createUser(data) {
  */
 export function listItems(page = 0, expiried) {
   const item = page * 10;
-  const expiredValue = expiried ? {'expiried': expiried, 'deleted': false} : {'deleted': false};
+  const expiredValue = expiried ? { 'expiried': expiried, 'deleted': false } : { 'deleted': false };
   return Item.find(expiredValue).sort('createdAt').skip(item).limit(10);
 }
 
@@ -70,7 +70,7 @@ export function listItems(page = 0, expiried) {
  * @return {object} - Item object
  */
 export function getItems(id = '') {
-  return Item.find({_id: id});
+  return Item.find({ _id: id });
 }
 
 /**
@@ -79,7 +79,16 @@ export function getItems(id = '') {
  * @return {object} - Item object
  */
 export function getItemsByIdentifier(identifier = '') {
-  return Item.find({identifier});
+  return Item.find({ identifier });
+}
+
+/**
+ * Поиск item по identifier
+ * @param {string} token - Item identifier
+ * @return {object} - Item object
+ */
+export function getItemsByToken(token = '') {
+  return Item.find({ token });
 }
 
 /**
@@ -88,7 +97,7 @@ export function getItemsByIdentifier(identifier = '') {
  * @return {object} - Item object
  */
 export function getItemsBySerial(serial = '') {
-  return Item.find({serial});
+  return Item.find({ serial });
 }
 
 /**
@@ -97,8 +106,10 @@ export function getItemsBySerial(serial = '') {
  * @return {object} - Объект с данными по схеме Item
  */
 export async function createItems(data = {}) {
-  const user = await getItemsByIdentifier(data.identifier);
-  if (!user) {
+  const token = await getItemsByToken(data.token);
+  console.log('token', token, token?.length);
+
+  if (token?.length === 0) {
     const item = new Item({
       identifier: data.identifier,
       token: data.token,
@@ -107,7 +118,7 @@ export async function createItems(data = {}) {
     });
     return item.save();
   }
-  return {'message': 'user found'};
+  return { 'message': 'token found' };
 }
 
 /**
@@ -117,5 +128,5 @@ export async function createItems(data = {}) {
  * @return {object} - обновленный объект
  */
 export function updateItems(id, params) {
-  return Item.findOneAndUpdate({_id: id}, {$set: params}, {new: true});
+  return Item.findOneAndUpdate({ _id: id }, { $set: params }, { new: true });
 }
