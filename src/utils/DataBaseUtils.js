@@ -115,6 +115,7 @@ export async function createItems(data = {}) {
       token: data.token,
       description: data.description,
       serial: data.serial,
+      createdAt: new Date(),
     });
     return item.save();
   }
